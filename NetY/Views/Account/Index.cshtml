@@ -1,0 +1,81 @@
+﻿@model IEnumerable<NetY.Models.News>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>后台管理</h2>
+
+<div class="row">
+    <div class="col-lg-3">
+        <partial name="~/Views/CommonPage/_Left.cshtml" />
+    </div>
+    <div class="col-lg-9">
+        <p>
+            <a asp-action="Create" class="btn btn-default">添加</a>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClassID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PicPath)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.InfoContent)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsPost)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClassID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PicPath)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.InfoContent)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPost)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ID">编辑</a> |
+                            <a asp-action="Details" asp-route-id="@item.ID">详情</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">删除</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
