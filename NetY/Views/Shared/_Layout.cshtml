@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+@using NetY.Helper
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,9 +39,21 @@
                     <li><a asp-area="" asp-controller="News" asp-action="Index">新闻列表</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @*<partial name="~/Views/CommonPage/Top.cshtml" />*@
-                    <li><a asp-area="" asp-controller="Home" asp-action="Register">注册</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Login">登录</a></li>
+                    <partial name="~/Views/CommonPage/Top.cshtml" />
+                    @*@{
+                        MyPage my = new MyPage();
+                        BaseController con = new BaseController();
+
+                        if (con.IsLogin())
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Register">用户中心</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Register">注册</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Login">登录</a></li>
+                        }
+                    }*@
                 </ul>
             </div>
         </div>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NetY.Models;
+using Ylp.Common;
 
 namespace NetY.Controllers
 {
@@ -57,6 +58,7 @@ namespace NetY.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.PassWord = MD5Helper.Get32MD5One(user.PassWord);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

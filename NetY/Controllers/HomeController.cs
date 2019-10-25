@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetY.Models;
+using Ylp.Common;
 
 namespace NetY.Controllers
 {
@@ -26,7 +27,7 @@ namespace NetY.Controllers
 
         public async Task<IActionResult> Index()
         {
-           ViewBag.Session=  HttpContext.Session.GetString("CurrentUser");
+             ViewBag.Session=  HttpContext.Session.GetString("CurrentUser");
             return View(await _context.News.ToListAsync());
         }
 
@@ -92,6 +93,7 @@ namespace NetY.Controllers
             {
                 user.CreateDate = DateTime.Now;
                 user.IsPost = false;
+                user.PassWord = MD5Helper.Get32MD5One(user.PassWord);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -109,7 +111,8 @@ namespace NetY.Controllers
         {
             if (ModelState.IsValid)
             {
-               User users=  _context.User.Where(e=>e.UserName==user.UserName).Where(e=>e.PassWord==user.PassWord).FirstOrDefault();
+                user.PassWord = MD5Helper.Get32MD5One(user.PassWord);
+                User users=  _context.User.Where(e=>e.UserName==user.UserName).Where(e=>e.PassWord==user.PassWord).FirstOrDefault();
 
                 if (users != null)
                 {
@@ -122,7 +125,19 @@ namespace NetY.Controllers
             return View(user);
         }
 
+        public bool IsLogin()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("CurrentUser")))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         #endregion
+
+
 
         #region Post
 

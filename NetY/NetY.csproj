@@ -16,4 +16,8 @@
     <Folder Include="Upload\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ylp.Common\Ylp.Common.csproj" />
+  </ItemGroup>
+
 </Project>

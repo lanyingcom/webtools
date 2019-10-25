@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,9 @@ namespace NetY.Controllers
         // GET: Account
         public async Task<IActionResult> Index()
         {
+            string userid = HttpContext.Session.GetString("CurrentUser");
             return View(await _context.News.ToListAsync());
+            //return View(await _context.News.Where(s=>s.UserID== userid).ToListAsync());
         }
 
         // GET: Account/Details/5
