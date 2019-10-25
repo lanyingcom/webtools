@@ -11,10 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using NetY.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using NetY.Helper;
 
 namespace NetY.Controllers
 {
-    public class NewsController : Controller
+    public class NewsController :BaseController
     {
         private IHostingEnvironment hostingEnv;
         private readonly ApplicationDbContext _context;

@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NetY.Models;
+using NetY.Helper;
 
 namespace NetY.Controllers
 {
-    public class NewsClassesController : Controller
+    public class NewsClassesController :BaseController
     {
         private readonly ApplicationDbContext _context;
 
