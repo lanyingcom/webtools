@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,21 @@ namespace NetY.Helper
 {
     public class BaseController : Controller
     {
-        public string GetLoginUser()
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("CurrentUser")))
+            byte[] result;
+            filterContext.HttpContext.Session.TryGetValue("CurrentUser", out result);
+
+            if (result == null)
             {
-                return HttpContext.Session.GetString("CurrentUser");
+                filterContext.Result = new RedirectResult("/Home/Login");
+                return;
             }
 
-            return null;
+            ViewBag.Session = result.ToString();
+
+            base.OnActionExecuting(filterContext);
         }
 
-        /// <summary>
-        ///判断是否登录
-        /// </summary>
-        /// <returns></returns>
-        public bool IsLogin()
-        {
-            HttpContext.Session.SetString("CurrentUser", "123456");
-
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("CurrentUser")))
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }

@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NetY.Models;
+using NetY.Helper;
 
 namespace NetY.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController :BaseController
     {
         private readonly ApplicationDbContext _context;
+        UserHelper userHelper = new UserHelper();
 
         public AccountController(ApplicationDbContext context)
         {
@@ -60,6 +62,7 @@ namespace NetY.Controllers
         {
             if (ModelState.IsValid)
             {
+                news.UserID= userHelper.GetUserIdByUserName(HttpContext.Session.GetString(WebCommon.CommonStr.SessionCurrentUser));
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
