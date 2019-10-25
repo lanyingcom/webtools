@@ -135,6 +135,17 @@ namespace NetY.Controllers
             return false;
         }
 
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult LoginOut()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
         #endregion
 
 
