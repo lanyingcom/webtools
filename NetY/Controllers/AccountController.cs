@@ -50,6 +50,9 @@ namespace NetY.Controllers
         // GET: Account/Create
         public IActionResult Create()
         {
+            NewsClass[] newsClassesArray = _context.NewsClass.ToArray();
+            ViewBag.enums = newsClassesArray.AsEnumerable();
+
             return View();
         }
 
@@ -63,6 +66,7 @@ namespace NetY.Controllers
             if (ModelState.IsValid)
             {
                 news.UserID= userHelper.GetUserIdByUserName(HttpContext.Session.GetString(WebCommon.CommonStr.SessionCurrentUser));
+                news.CreatedTime = DateTime.Now;
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

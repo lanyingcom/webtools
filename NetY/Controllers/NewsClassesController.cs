@@ -58,6 +58,7 @@ namespace NetY.Controllers
         {
             if (ModelState.IsValid)
             {
+                newsClass.CreatedTime = DateTime.Now;
                 _context.Add(newsClass);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
